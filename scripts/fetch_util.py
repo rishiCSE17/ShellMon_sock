@@ -1,6 +1,7 @@
 import psutil as ps
 import os
 import time as t
+import scripts.fetch_net_info as nif
 
 def get_cpu_util(interval=None):
     dict_cpu={}
@@ -28,31 +29,25 @@ def get_mem_util(mypass):
     dict_mem['freq']=sum(dict_mem['freq'])/len(dict_mem['freq'])
     return dict_mem
 
-def get_net_util(interval, iface):
-    dict_net={}
-    x = ps.net_io_counters(pernic=True)[iface]
-    t.sleep(2)
-    y = ps.net_io_counters(pernic=True)[iface]
-    speed = ps.net_if_stats()[iface]
-    print(speed)
-    try:
-        dict_net['util_eggress'] = ((y[1] - x[1]) * 8 * 100) / (interval * speed * pow(2, 20))
-        dict_net['util_ingress' ]= ((y[1] - x[1]) * 8 * 100) / (interval * speed * pow(2, 20))
-    except ZeroDivisionError:
-        dict_net['util_eggress'] = ((y[1] - x[1]) * 8 * 100) / (interval * speed * pow(2, 20))
-        dict_net['util_ingress'] = ((y[1] - x[1]) * 8 * 100) / (interval * speed * pow(2, 20))
+def get_net_util(loop, plot, iface, is_wl, interval, window):
 
-
+    dict_net=nif.main(loop, plot, iface, is_wl, interval, window)
+    return dict_net
 
 def main_loop(delay=0, cpu_interval=None, my_pass=''):
     while(True):
         ## execution block
         print(get_cpu_util(cpu_interval))
         print(get_mem_util(mypass=my_pass))
-
+        print(get_net_util(loop=False,
+                           plot=False,
+                           iface='wlp3s0',
+                           is_wl=True,
+                           interval=1,
+                           window=60))
 
         ## delay block
-        time.sleep(delay)
+        t.sleep(delay)
 
 def fetch_util_main():
     main_loop(delay=2, my_pass='Nil27311072008')

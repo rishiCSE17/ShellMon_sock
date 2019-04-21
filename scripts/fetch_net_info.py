@@ -4,6 +4,7 @@ from drawnow import *
 import psutil as ps
 import os
 
+
 y_snd = []
 y_rcv = []
 y_spd = []
@@ -89,18 +90,18 @@ def main_loop(loop, plot, iface, is_wl, interval, window):
         ######### Prepering return dict
         ret = {}
 
-        ret['Ingress_util'] = y_rcv[-1],
-        ret['Egress_util'] = y_snd[-1],
-        ret['Speed'] = speed,
+        ret['Ingress_util'] = y_rcv[-1]
+        ret['Egress_util'] = y_snd[-1]
+        ret['Speed'] = speed
 
         if is_wl:
-            ret['Freq'] = freq,
-            ret['x_pwr'] = tx_pwr,
-            ret['sig_lvl'] = sig_lvl,
+            ret['Freq'] = freq
+            ret['x_pwr'] = tx_pwr
+            ret['sig_lvl'] = sig_lvl
             ret['q_link'] = q_link
 
         ##### For Unit Testing
-        print(ret)
+        #print(ret)
 
         if len(y_snd) == (window - 1):  # maintaining window size
             y_snd.pop(0)
@@ -109,12 +110,12 @@ def main_loop(loop, plot, iface, is_wl, interval, window):
             y_spd.pop(0)
 
         if loop == False:  # preventing to reienter loop
-            print(ret)
-            break
+            return ret
 
         if loop == True and plot == True:  # Preventing to plot if not looping
             drawnow(plot_me)
 
+    return 0
 
 def main(loop, plot, iface, is_wl, interval, window):
     '''
@@ -125,7 +126,7 @@ def main(loop, plot, iface, is_wl, interval, window):
     window=60      #in sec
     is_wl=True     #if interface is a wireless one
     '''
-    main_loop(loop, plot, iface, is_wl, interval, window)
+    return main_loop(loop, plot, iface, is_wl, interval, window)
 
 
-main(loop=True, plot=True, iface='wlp3s0', is_wl=True, interval=1, window=60, )  # loop=False to give 1 output
+#main(loop=True, plot=True, iface='wlp3s0', is_wl=True, interval=1, window=60)  # loop=False to give 1 output
