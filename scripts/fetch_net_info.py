@@ -115,7 +115,7 @@ def main_loop(loop, plot, iface, is_wl, interval, window):
         if loop == True and plot == True:  # Preventing to plot if not looping
             drawnow(plot_me)
 
-    return 0
+    return ret
 
 def main(loop, plot, iface, is_wl, interval, window):
     '''
