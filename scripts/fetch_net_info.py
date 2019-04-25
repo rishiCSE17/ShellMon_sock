@@ -13,7 +13,7 @@ iface_name = ''
 
 
 def plot_me():
-    global x
+    global t_stamps
     t_stamps.append(t.time())
     plt.title(f'Monitoring : {iface_name}')
     plt.plot(t_stamps, y_snd, label=f'Eggress Util : {y_snd[-1]} %')
@@ -115,7 +115,7 @@ def main_loop(loop, plot, iface, is_wl, interval, window):
         if loop == True and plot == True:  # Preventing to plot if not looping
             drawnow(plot_me)
 
-    return ret
+    return 0
 
 def main(loop, plot, iface, is_wl, interval, window):
     '''

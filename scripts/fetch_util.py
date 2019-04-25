@@ -2,6 +2,8 @@ import psutil as ps
 import os
 import time as t
 import scripts.fetch_net_info as nif
+import json
+
 
 def get_cpu_util(interval=None):
     dict_cpu={}
@@ -34,22 +36,37 @@ def get_net_util(loop, plot, iface, is_wl, interval, window):
     dict_net=nif.main(loop, plot, iface, is_wl, interval, window)
     return dict_net
 
-def main_loop(delay=0, cpu_interval=None, my_pass=''):
+def send_data(datagram):
+    print(json.dumps(datagram))
+
+
+
+def main_loop(loop=True, delay=0, cpu_interval=None, my_pass=''):
+    # distionary to send data to the server
+    datagram={}
     while(True):
         ## execution block
-        print(get_cpu_util(cpu_interval))
-        print(get_mem_util(mypass=my_pass))
-        print(get_net_util(loop=False,
+        datagram['cpu'] = get_cpu_util(cpu_interval)
+        datagram['mem'] = get_mem_util(mypass=my_pass)
+        datagram['net'] = get_net_util(loop=False,
                            plot=False,
                            iface='wlp3s0',
                            is_wl=True,
                            interval=1,
-                           window=60))
+                           window=60)
+
+        ##test block
+        #send_data(datagram)
+
+        ## breaking loop
+        if not loop:
+            return datagram
 
         ## delay block
         t.sleep(delay)
 
-def fetch_util_main():
-    main_loop(delay=2, my_pass='Nil27311072008')
+def main_fetch_util(loop, delay, cpu_interval, my_pass):
+    return main_loop(loop, delay, cpu_interval, my_pass)
 
-fetch_util_main()
+
+#main_fetch_util()
