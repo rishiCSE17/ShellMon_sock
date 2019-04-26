@@ -11,7 +11,7 @@ import random
 from scripts import fetch_util as util
 import json
 
-def send_loop(client_port, host_ip, host_port, buffer_size=1024, cpu_interval=2, delay=1, mypass=''):
+def send_loop(client_port, host_ip, host_port, buffer_size=1024, cpu_interval=2, delay=1, mypass='', intf='eth0', is_wl=True):
     print('================= TRANSMISSION INITIATED ==============')
 
     #initiate socket
@@ -25,7 +25,9 @@ def send_loop(client_port, host_ip, host_port, buffer_size=1024, cpu_interval=2,
             msg=util.main_fetch_util(loop=False,
                                      delay=delay,
                                      cpu_interval=cpu_interval,
-                                     my_pass=mypass)
+                                     my_pass=mypass,
+                                     intf=intf,
+                                     is_wl=is_wl)
 
             time.sleep(3)
             msg_byte=str.encode(json.dumps(msg))
@@ -44,11 +46,22 @@ def main():
     buffer_size = int(input('Enter Buffer size \t : '))
     client_password=input('Enter your password : ')
     intf=input('Enter interface to monitor \t : ')
+    while True:
+        is_wl=input('is this a wireless interface ? (y/n) : \t')
+        if is_wl == 'y':
+            is_wl=True
+            break
+        elif is_wl == 'n':
+            is_wl = False
+            break
+        else:
+            continue
 
     send_loop(client_port=client_port,
               host_ip=host_ip,
               host_port=host_port,
               mypass=client_password,
-              intf=intf)
+              intf=intf,
+              is_wl=is_wl)
 
 main()

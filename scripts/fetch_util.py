@@ -44,7 +44,7 @@ def send_data(datagram):
 
 
 
-def main_loop(loop=True, delay=0, cpu_interval=None, my_pass='', intf='eth0'):
+def main_loop(loop=True, delay=0, cpu_interval=None, my_pass='', intf='eth0',is_wl=False):
     # distionary to send data to the server
     datagram={}
     while(True):
@@ -54,7 +54,7 @@ def main_loop(loop=True, delay=0, cpu_interval=None, my_pass='', intf='eth0'):
         datagram['net'] = get_net_util(loop=False,
                            plot=False,
                            iface=intf,
-                           is_wl=True,
+                           is_wl=is_wl,
                            interval=1,
                            window=60)
 
@@ -68,8 +68,8 @@ def main_loop(loop=True, delay=0, cpu_interval=None, my_pass='', intf='eth0'):
         ## delay block
         t.sleep(delay)
 
-def main_fetch_util(loop, delay, cpu_interval, my_pass, intf):
-    return main_loop(loop, delay, cpu_interval, my_pass, intf)
+def main_fetch_util(loop, delay, cpu_interval, my_pass, intf, is_wl):
+    return main_loop(loop, delay, cpu_interval, my_pass, intf, is_wl)
 
 
 #main_fetch_util()
