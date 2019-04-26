@@ -8,7 +8,7 @@ sends data to the server
 import socket
 import time
 import random
-import scripts.fetch_util as util
+from scripts import fetch_util as util
 import json
 
 def send_loop(client_port, host_ip, host_port, buffer_size=1024, cpu_interval=2, delay=1, mypass=''):

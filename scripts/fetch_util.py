@@ -1,7 +1,7 @@
 import psutil as ps
 import os
 import time as t
-import scripts.fetch_net_info as nif
+from scripts import fetch_net_info as nif
 import json
 
 
@@ -44,7 +44,7 @@ def send_data(datagram):
 
 
 
-def main_loop(loop=True, delay=0, cpu_interval=None, my_pass='', intf):
+def main_loop(loop=True, delay=0, cpu_interval=None, my_pass='', intf='eth0'):
     # distionary to send data to the server
     datagram={}
     while(True):
