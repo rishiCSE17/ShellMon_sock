@@ -43,10 +43,12 @@ def main():
     host_port = int(input('Enter Server Port \t : '))
     buffer_size = int(input('Enter Buffer size \t : '))
     client_password=input('Enter your password : ')
+    intf=input('Enter interface to monitor \t : ')
 
     send_loop(client_port=client_port,
               host_ip=host_ip,
               host_port=host_port,
-              mypass=client_password)
+              mypass=client_password,
+              intf=intf)
 
 main()
