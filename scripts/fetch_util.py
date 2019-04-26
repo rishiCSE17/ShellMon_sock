@@ -21,14 +21,17 @@ def get_mem_util(mypass):
     mem_details=ps.virtual_memory()
     dict_mem['vol']=round(mem_details[0] / pow(2,30), 3) # rotal memory in GB
     dict_mem['util']=mem_details[2] /100 #utilization in [0,1] range
-    dict_mem['freq']=[int(i) for i in
-                        os.popen(f"echo {mypass} | "
-                                 f"sudo -S dmidecode -t memory | "
-                                 f"grep 'Clock Speed' | "
-                                 f"cut -d ':' -f2")
-                           .read().split(' ')
-                      if i.isdigit()]
-    dict_mem['freq']=sum(dict_mem['freq'])/len(dict_mem['freq'])
+    try:
+        dict_mem['freq']=[int(i) for i in
+                            os.popen(f"echo {mypass} | "
+                                     f"sudo -S dmidecode -t memory | "
+                                     f"grep 'Clock Speed' | "
+                                     f"cut -d ':' -f2")
+                               .read().split(' ')
+                          if i.isdigit()]
+        dict_mem['freq']=round(sum(dict_mem['freq'])/len(dict_mem['freq']),3)
+    except:
+        dict_mem['freq']=1366
     return dict_mem
 
 def get_net_util(loop, plot, iface, is_wl, interval, window):
