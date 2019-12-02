@@ -1,7 +1,7 @@
 import psutil as ps
 import os
 import time as t
-from scripts import fetch_net_info as nif
+import fetch_net_info as nif
 import json
 
 
