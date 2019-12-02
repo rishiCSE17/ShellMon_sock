@@ -4,7 +4,7 @@ import threading as th
 import json
 import os
 import matplotlib.pyplot as plt
-import drawnow
+from drawnow import  *
 
 print_lock = th.Lock()
 window = []
