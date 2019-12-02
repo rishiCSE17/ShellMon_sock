@@ -63,10 +63,14 @@ def  plot_me():
     a_i = -2
     a_e = -1
     for k in plot_data:
-        plotter(ax=axes[a_m+4], data=plot_data[k]['mem'], key=k, name='Memory', col='m')
-        plotter(ax=axes[a_c + 4], data=plot_data[k]['cpu'], key=k, name='CPU', col='c')
-        plotter(ax=axes[a_i + 4], data=plot_data[k]['net_i'], key=k, name='NetI', col='g')
-        plotter(ax=axes[a_e + 4], data=plot_data[k]['net_e'], key=k, name='NetE', col='r')
+        a_m += 4
+        a_c += 4
+        a_i += 4
+        a_e += 4
+        plotter(ax=axes[a_m], data=plot_data[k]['mem'], key=k, name='Memory', col='m')
+        plotter(ax=axes[a_c], data=plot_data[k]['cpu'], key=k, name='CPU', col='c')
+        plotter(ax=axes[a_i], data=plot_data[k]['net_i'], key=k, name='NetI', col='g')
+        plotter(ax=axes[a_e], data=plot_data[k]['net_e'], key=k, name='NetE', col='r')
     fig.suptitle('ShellMon Experiment')
 
 
