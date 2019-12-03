@@ -81,9 +81,11 @@ def show_graphs():
 def plotter(ax, data, key, name, col):
     ax.grid(True)
     ax.plot(list(range(len(_mov_avg(data)))), _mov_avg(data), linewidth=2, label='{} {}'.format(name, key), color=col)
-    ax.set_ylabel('Moving {}'.format(name))
+    #ax.set_ylabel('Moving {}'.format(name))
     ax.set_xlabel('Time (seconds)')
     ax.fill_between(list(range(len(_mov_avg(data)))), _mov_avg(data), 0, alpha=0.5, color=col)
+    if name == "Memory":
+        ax.set_ylabel('Client: {}'.format(key), rotation=0, fontsize=10, labelpad=30)
     ax.legend()
     plt.subplot(ax)
 
