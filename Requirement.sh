@@ -11,4 +11,4 @@ sudo python3.7 -m pip install --upgrade pip
 figlet 'ShellMon-Sock by Saptarshi'
 echo 'press any key to continue...'
 read x
-sudo python3 -m pip install numpy matplotlib drawnow psutil
+sudo python3.7 -m pip install numpy matplotlib drawnow psutil
